@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>To-Do App
+     </title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+         }
+
+         .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+
+         h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+         }
+
+         .form-group {
+            margin-bottom: 15px;
+         }
+
+         .form-group label {
+            display: block;
+            margin-bottom: 5px;
+         }
+
+         .form-group input {
+            width: 100%;
+            padding: 5px;
+            font-size: 14px;
+         }
+
+         .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+         }
+
+         .btn:hover {
+            background-color: #0056b3;
+         }
+
+         ul {
+            list-style-type: none;
+            padding: 0;
+         }
+
+         li {
+            background-color: #e0e0e0;
+            padding: 10px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+         }
+
+         .completed {
+            text-decoration: line-through;
+         }
+      </style>
+   </head>
+   <body>
+        <div class="container">
+         <h1>To-Do App</h1>
+            <form id="todo-form">
+             <div class="form-group">
+                 <label for="task">Task:</label>
+                 <input type="text" id="task" name="task" required>
+                </div>
+             <button type="submit" class="btn">Add Task</button>
+            </form>
+            <ul id="todo-list">
+            </ul>
+        </div>
+        <script>
+             const form = document.getElementById('todo-form');
+             const taskList = document.getElementById('todo-list');
+
+             form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const task = document.getElementById('task').value.trim();
+                if (task) {
+                   addTaskToList(task);
+                   form.reset();
+                  }
+               });
+
+             function addTaskToList(task) {
+                const listItem = document.createElement('li');
+                listItem.textContent = task;
+                listItem.addEventListener('click', function() {
+                   listItem.classList.toggle('completed');
+               });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', function(e) {
+                   e.stopPropagation();
+                   taskList.removeChild(listItem);
+                  });
+
+                listItem.appendChild(deleteButton);
+                taskList.appendChild(listItem);
+               }
+      </script>
+   </body>
+</html>
